@@ -1,0 +1,40 @@
+:root {
+  //   --primary: #fe2c55;
+  //   --white: #fff;
+  //   --black: #000;
+  //   --text-color: #161823;
+  //   --search-button-width: 52px;
+  //   --font-family: "ProximaNova", sans-serif;
+  //   DefaultLayout
+  --default-layout-width: 1150px;
+  //   --default-layout-header-height: 60px;
+  //   --default-layout-horizontal-spacer: 24px;
+  //   --default-layout-width-upload: 1100px;
+}
+
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: var(--font-family);
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button,
+input,
+[tabindex] {
+  border: none;
+  outline: none;
+}
+a[href] {
+  color: var(--text-color);
+  text-decoration: none;
+}
