@@ -1,3 +1,5 @@
+import { useAppDispatch } from "../../../app/hooks";
+import { filterTodo } from "../../../features/todos/todosSlice";
 import NavList from "./NavList/NavList";
 import styles from "./Navbar.module.scss";
 import classnames from "classnames/bind";
@@ -10,6 +12,10 @@ const navList = [
 ];
 
 function Navbar() {
+  const dispatch = useAppDispatch();
+  const handlerFilterTodo = (type: string) => {
+    dispatch(filterTodo(type));
+  };
   return (
     <div className={cx("wrapper")}>
       <ul className={cx("nav-list")}>
@@ -19,6 +25,7 @@ function Navbar() {
               key={itemList.name}
               name={itemList.name}
               colorCode={itemList.colorCode}
+              handlerFilterTodo={handlerFilterTodo}
             />
           );
         })}

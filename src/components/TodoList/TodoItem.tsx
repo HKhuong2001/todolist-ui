@@ -1,16 +1,19 @@
 import classNames from "classnames/bind";
 import styles from "./todo.module.scss";
 import MyIcon from "../Icons";
-import { Todo } from "../../features/todos/todosSlice";
+import { Todo, editingTodo } from "../../features/todos/todosSlice";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import config from "../../config";
+import { useAppDispatch } from "../../app/hooks";
 const cx = classNames.bind(styles);
 export interface ItemProps {
   item: Todo;
+  handlerDelete: (id: string) => void;
 }
-function TodoItem({ item }: ItemProps) {
+function TodoItem({ item, handlerDelete }: ItemProps) {
   const [showTippy, setShowTippy] = useState<Boolean>(false);
+  const dispatch = useAppDispatch();
   const { title, description, todoType, done } = item;
   return (
     <div className={cx("todo-item")}>
@@ -25,8 +28,13 @@ function TodoItem({ item }: ItemProps) {
 
           {showTippy && (
             <div className={cx("tippy")}>
-              <Link to={config.add}>Edit...</Link>
-              <span>Delete</span>
+              <Link
+                to={config.add}
+                onClick={() => dispatch(editingTodo(item._id))}
+              >
+                Edit...
+              </Link>
+              <span onClick={() => handlerDelete(item._id)}>Delete</span>
             </div>
           )}
         </span>
