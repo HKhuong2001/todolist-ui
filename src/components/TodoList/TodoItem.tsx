@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./todo.module.scss";
 import MyIcon from "../Icons";
-import { Todo, editingTodo } from "../../features/todos/todosSlice";
+import { Todo, editingTodo, toggleTodo } from "../../features/todos/todosSlice";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import config from "../../config";
@@ -13,12 +13,20 @@ export interface ItemProps {
 }
 function TodoItem({ item, handlerDelete }: ItemProps) {
   const [showTippy, setShowTippy] = useState<Boolean>(false);
+  const [toggle, setToggle] = useState<boolean>(item.done);
   const dispatch = useAppDispatch();
-  const { title, description, todoType, done } = item;
+  const { title, description, todoType } = item;
+  const handlerStateDelete = () => {
+    if (toggle) {
+      handlerDelete(item._id);
+    }
+  };
   return (
     <div className={cx("todo-item")}>
       <div className={cx("todo-item-header")}>
-        <h3>{title}</h3>
+        <h3 className={cx("title", { state: toggle ? "state" : "" })}>
+          {title}
+        </h3>
         <span onClick={() => setShowTippy(!showTippy)}>
           <MyIcon
             styleIcon="fas"
@@ -34,12 +42,14 @@ function TodoItem({ item, handlerDelete }: ItemProps) {
               >
                 Edit...
               </Link>
-              <span onClick={() => handlerDelete(item._id)}>Delete</span>
+              <span className={cx("delete")} onClick={handlerStateDelete}>
+                Delete
+              </span>
             </div>
           )}
         </span>
       </div>
-      <div className={cx("todo-item-body")}>
+      <div className={cx("todo-item-body", { state: toggle ? "state" : "" })}>
         <p>{description}</p>
       </div>
       <div className={cx("todo-item-footer")}>
@@ -52,8 +62,20 @@ function TodoItem({ item, handlerDelete }: ItemProps) {
           })}
         ></div>
         <div className={cx("done")}>
-          <input type="checkbox" id="checkdone" checked={done} />
-          <label htmlFor="checkdone">Done</label>
+          <input
+            type="checkbox"
+            id={item._id}
+            checked={toggle}
+            onChange={(event) => {
+              setToggle(event.target.checked);
+            }}
+            onClick={() => {
+              dispatch(toggleTodo(item._id));
+              setToggle(!toggle);
+              console.log("toggle");
+            }}
+          />
+          <label htmlFor={item._id}>Done</label>
         </div>
       </div>
     </div>

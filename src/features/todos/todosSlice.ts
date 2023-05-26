@@ -77,6 +77,16 @@ export const deleteTodo = createAsyncThunk(
   }
 );
 
+export const toggleTodo = createAsyncThunk(
+  "todos/toggleTodo",
+  async (id: string, thunkAPI) => {
+    const response = await http.get<string>(`/api/todos/${id}`, {
+      signal: thunkAPI.signal,
+    });
+    return response.data;
+  }
+);
+
 const todosSlice = createSlice({
   name: "todos",
   initialState,
@@ -107,7 +117,8 @@ const todosSlice = createSlice({
       })
       .addCase(filterTodo.fulfilled, (state, action) => {
         state.todoList = action.payload;
-      });
+      })
+      .addCase(toggleTodo.fulfilled, (state, action) => {});
   },
 });
 

@@ -22,6 +22,7 @@ const checkList = ["work", "study", "entertainment", "family"];
 function AddToDos() {
   const todoEdit = useAppSelector((state: RootState) => state.todos.editTodo);
   const [formTodo, setFormTodo] = useState<Todo>(form);
+
   const dispatch = useAppDispatch();
   console.log(todoEdit);
 
@@ -62,26 +63,26 @@ function AddToDos() {
       <div className={cx("form-group")}>
         <label>ToDo Type: </label>
         <div className={cx("wrap-check")}>
-          {checkList.map((checkItem) => {
-            return (
-              <div className={cx("form-group-checkbox")} key={checkItem}>
-                <input
-                  className={cx("input-check")}
-                  id="work"
-                  type="radio"
-                  name="radio-btn"
-                  onChange={(event) => {
-                    const type = event.target.checked === true ? checkItem : "";
-                    setFormTodo((prev) => ({
-                      ...prev,
-                      todoType: type,
-                    }));
-                  }}
-                />
-                <label htmlFor="work">{checkItem}</label>
-              </div>
-            );
-          })}
+          <select
+            name="selectType"
+            id="selectTodo"
+            value={formTodo.todoType}
+            onChange={(event) =>
+              setFormTodo((prev) => ({
+                ...formTodo,
+                todoType: event.target.value,
+              }))
+            }
+          >
+            <option>Select Type Todo</option>
+            {checkList.map((item, index) => {
+              return (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              );
+            })}
+          </select>
         </div>
       </div>
       <div className={cx("form-group")}>

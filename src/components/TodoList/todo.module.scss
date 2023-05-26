@@ -22,8 +22,11 @@
     &-header {
       display: flex;
       justify-content: space-between;
-      h3 {
+      .title {
         font-size: 2.4rem;
+        &.state {
+          text-decoration: line-through;
+        }
       }
       span {
         position: relative;
@@ -39,6 +42,9 @@
           justify-content: space-around;
           padding: 4px 15px;
           border-radius: 8px;
+          .delete {
+            cursor: pointer;
+          }
         }
       }
       .header-icon {
@@ -51,6 +57,9 @@
       max-height: 70px;
       overflow: auto;
       margin-bottom: 20px;
+      &.state {
+        text-decoration: line-through;
+      }
     }
     &-footer {
       margin-top: auto;
@@ -80,6 +89,7 @@
         display: flex;
         align-items: center;
         gap: 5px;
+        cursor: pointer;
         input {
           width: 15px;
           height: 15px;
