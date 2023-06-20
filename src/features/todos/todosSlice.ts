@@ -23,7 +23,7 @@ const initialState: TodosState = {
 export const getAllTodo = createAsyncThunk(
   "todos/getAllTodo",
   async (_, thunkAPI) => {
-    const response = await http.get<Todo[]>("/api/todos", {
+    const response = await http.get<Promise<Todo[]>>("/api/todos", {
       signal: thunkAPI.signal,
     });
     console.log(response.data);
@@ -35,7 +35,7 @@ export const getAllTodo = createAsyncThunk(
 export const filterTodo = createAsyncThunk(
   "todos/filterTodo",
   async (type: string, thunkAPI) => {
-    const response = await http.get<Todo[]>(
+    const response = await http.get<Promise<Todo[]>>(
       `/api/todos/query/search?todoType=${type}`,
       {
         signal: thunkAPI.signal,

@@ -1,8 +1,11 @@
+import { useLocation, useRoutes } from "react-router-dom";
 import { useAppDispatch } from "../../../app/hooks";
 import { filterTodo } from "../../../features/todos/todosSlice";
 import NavList from "./NavList/NavList";
 import styles from "./Navbar.module.scss";
 import classnames from "classnames/bind";
+import { useEffect, useState } from "react";
+import queryString from "query-string";
 const cx = classnames.bind(styles);
 const navList = [
   { name: "work", colorCode: "#D2CEFF" },
@@ -13,9 +16,22 @@ const navList = [
 
 function Navbar() {
   const dispatch = useAppDispatch();
-  const handlerFilterTodo = (type: string) => {
-    dispatch(filterTodo(type));
-  };
+  const location = useLocation();
+
+  const [initialString, setInitialString] = useState("");
+
+  useEffect(() => {
+    const params = queryString.parse(location.search);
+    const topics = params.topics;
+    setInitialString(topics?.toString() || "");
+  }, [location.search]);
+
+  useEffect(() => {
+    if (initialString) {
+      dispatch(filterTodo(initialString));
+    }
+  }, [initialString, dispatch]);
+
   return (
     <div className={cx("wrapper")}>
       <ul className={cx("nav-list")}>
@@ -25,7 +41,6 @@ function Navbar() {
               key={itemList.name}
               name={itemList.name}
               colorCode={itemList.colorCode}
-              handlerFilterTodo={handlerFilterTodo}
             />
           );
         })}

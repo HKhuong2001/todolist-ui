@@ -25,9 +25,9 @@
   .container {
     height: 100%;
     width: 100%;
+
     &-fluid {
       min-height: 100vh;
-      padding: 0;
       &-wrapper {
         display: flex;
         flex-direction: column;
