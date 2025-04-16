@@ -34,7 +34,7 @@ function TodoList({ todoList }: TodoProps) {
 
   return (
     <>
-      {todoList.length === 0 ? (
+      {/* {todoList.length === 0 ? (
         <div className={cx("todo-list-none")}>
           <h1>You dont have any todo with {initialString}!</h1>
         </div>
@@ -46,7 +46,64 @@ function TodoList({ todoList }: TodoProps) {
             );
           })}
         </div>
-      )}
+      )} */}
+      <div className={cx("todo-list")}>
+        <TodoItem
+          key={1}
+          item={{
+            _id: "1",
+            description: "Luyện tập Selenium",
+            done: false,
+            title: "How to Work with Selenium",
+            todoType: "work",
+          }}
+          handlerDelete={handlerDelete}
+        />
+        <TodoItem
+          key={1}
+          item={{
+            _id: "1",
+            description: "Luyện tập Selenium",
+            done: false,
+            title: "How to Work with Selenium",
+            todoType: "study",
+          }}
+          handlerDelete={handlerDelete}
+        />
+        <TodoItem
+          key={1}
+          item={{
+            _id: "1",
+            description: "Luyện tập Selenium",
+            done: false,
+            title: "How to Work with Selenium",
+            todoType: "entertainment",
+          }}
+          handlerDelete={handlerDelete}
+        />
+        <TodoItem
+          key={1}
+          item={{
+            _id: "1",
+            description: "Luyện tập Selenium",
+            done: false,
+            title: "How to Work with Selenium",
+            todoType: "family",
+          }}
+          handlerDelete={handlerDelete}
+        />
+        <TodoItem
+          key={1}
+          item={{
+            _id: "1",
+            description: "Luyện tập Selenium",
+            done: false,
+            title: "How to Work with Selenium",
+            todoType: "work",
+          }}
+          handlerDelete={handlerDelete}
+        />
+      </div>
     </>
   );
 }

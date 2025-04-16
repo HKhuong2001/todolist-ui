@@ -1,8 +1,6 @@
-import queryString from "query-string";
 import styles from "../Navbar.module.scss";
 import classNames from "classnames/bind";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const cx = classNames.bind(styles);
 
 export interface NavListItem {

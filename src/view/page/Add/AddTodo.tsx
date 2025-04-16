@@ -19,12 +19,11 @@ const form: Todo = {
 
 const checkList = ["work", "study", "entertainment", "family"];
 
-function AddToDos() {
+function FormToDos() {
   const todoEdit = useAppSelector((state: RootState) => state.todos.editTodo);
   const [formTodo, setFormTodo] = useState<Todo>(form);
 
   const dispatch = useAppDispatch();
-  console.log(todoEdit);
 
   useEffect(() => {
     if (todoEdit) {
@@ -100,18 +99,11 @@ function AddToDos() {
           }
         ></textarea>
       </div>
-
-      {todoEdit ? (
-        <button className={cx("btn-submit")} type="submit">
-          Edit Todo
-        </button>
-      ) : (
-        <button className={cx("btn-submit")} type="submit">
-          Create New Todo
-        </button>
-      )}
+      <button className={cx("btn-submit")} type="submit" id="btn-submit">
+        {todoEdit ? "Edit Todo" : "Create New Todo"}
+      </button>
     </form>
   );
 }
 
-export default AddToDos;
+export default FormToDos;

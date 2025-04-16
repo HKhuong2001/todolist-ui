@@ -19,19 +19,17 @@ const initialState: TodosState = {
   todoList: initalToDoList,
   editTodo: undefined,
 };
-
+// Get Data
 export const getAllTodo = createAsyncThunk(
   "todos/getAllTodo",
   async (_, thunkAPI) => {
     const response = await http.get<Promise<Todo[]>>("/api/todos", {
       signal: thunkAPI.signal,
     });
-    console.log(response.data);
-
     return response.data;
   }
 );
-
+// Search Todo
 export const filterTodo = createAsyncThunk(
   "todos/filterTodo",
   async (type: string, thunkAPI) => {
@@ -46,9 +44,9 @@ export const filterTodo = createAsyncThunk(
     return response.data;
   }
 );
-
+// ADD new Todo
 export const addTodoList = createAsyncThunk(
-  "todos/addTodo",
+  "todos/addTodoList",
   async (body: Todo, thunkAPI) => {
     const response = await http.post<Todo>("/api/todos", body, {
       signal: thunkAPI.signal,
@@ -56,7 +54,7 @@ export const addTodoList = createAsyncThunk(
     return response.data;
   }
 );
-
+// Edit Todo
 export const updateTodo = createAsyncThunk(
   "todos/updateTodo",
   async (body: Todo, thunkAPI) => {
@@ -66,7 +64,7 @@ export const updateTodo = createAsyncThunk(
     return response.data;
   }
 );
-
+// Remove from data
 export const deleteTodo = createAsyncThunk(
   "todos/deleteTodo",
   async (id: string, thunkAPI) => {
@@ -104,6 +102,9 @@ const todosSlice = createSlice({
       })
       .addCase(addTodoList.fulfilled, (state, action) => {
         state.todoList.push(action.payload);
+      })
+      .addCase(addTodoList.rejected, (state, action) => {
+        console.log(action.error.message);
       })
       .addCase(updateTodo.fulfilled, (state, action) => {
         state.editTodo = undefined;
